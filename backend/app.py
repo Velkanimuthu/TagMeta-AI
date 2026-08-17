@@ -392,6 +392,8 @@ def upload_file():
         return jsonify({"error": f"Unsupported format: .{ext}"}), 400
 
     try:
+        text_content = ""
+        segments = []
         temp_dir = tempfile.gettempdir()
         filepath = os.path.join(temp_dir, file.filename)
         file.save(filepath)
