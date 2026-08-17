@@ -25,7 +25,13 @@ app = Flask(__name__)
 CORS(app)
 
 load_dotenv()
-client = genai.Client()
+
+gemini_api_key = os.getenv("AQ.Ab8RN6KmHzO095OtpzQ6UTrIlvpWG_rmt4LrzYEL4_i97MjK-w")
+
+if not gemini_api_key:
+    raise RuntimeError("GEMINI_API_KEY is missing")
+
+client = genai.Client(api_key=gemini_api_key)
 
 # Load the local NLP model into memory when the server starts
 print("Loading local NLP model (spaCy)...")
