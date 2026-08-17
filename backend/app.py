@@ -557,6 +557,35 @@ def upload_file():
         except Exception as fallback_error:
             # If even the local fallback fails, return a 500 server error
             return jsonify({"error": f"API and Local Fallback both failed: {str(fallback_error)}"}), 500
+# ==========================================
+# --- HEALTH CHECK / ROOT ---
+# ==========================================
+@app.route('/', methods=['GET'])
+def home():
+    return jsonify({
+        "status": "online",
+        "service": "TagMeta AI API",
+        "message": "Backend is running successfully."
+    }), 200
+
+
+@app.route('/health', methods=['GET'])
+def health():
+    try:
+        # Verify MongoDB connection
+        mongo_client.admin.command('ping')
+
+        return jsonify({
+            "status": "healthy",
+            "mongodb": "connected",
+            "nlp": "loaded"
+        }), 200
+
+    except Exception as e:
+        return jsonify({
+            "status": "unhealthy",
+            "error": str(e)
+        }), 500
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
