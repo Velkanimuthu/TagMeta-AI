@@ -51,7 +51,7 @@ export default function SearchTranscripts() {
     
     try {
       const queryStr = `q=${encodeURIComponent(searchQuery)}&genre=${encodeURIComponent(genre)}&sentiment=${encodeURIComponent(sentiment)}&emotion=${encodeURIComponent(emotion)}&character=${encodeURIComponent(character)}&page=${pageNum}&limit=10`;
-      const response = await fetch(`http://127.0.0.1:5000/api/search?${queryStr}`);
+      const response = await fetch(`https://tagmeta-ai-1.onrender.com/api/search?${queryStr}`);
       
       if (response.ok) {
         const data = await response.json();
