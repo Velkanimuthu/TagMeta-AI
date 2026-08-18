@@ -38,7 +38,7 @@ export default function ContentInsights() {
       const targetId = scriptId || '1022603';
 
       try {
-        const response = await fetch(`http://127.0.0.1:5000/api/insights/${targetId}`);
+        const response = await fetch(`https://tagmeta-ai-1.onrender.com/api/insights/${targetId}`);
         
         if (response.ok) {
           const data = await response.json();
