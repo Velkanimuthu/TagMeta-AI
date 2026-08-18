@@ -47,7 +47,7 @@ export default function Dashboard() {
  useEffect(() => {
     const fetchDashboardStats = async () => {
       try {
-        const res = await fetch('http://127.0.0.1:5000/api/dashboard/stats');
+        const res = await fetch('https://tagmeta-ai-1.onrender.com/api/dashboard/stats');
         if (res.ok) {
           const data = await res.json();
           // Map backend stats
