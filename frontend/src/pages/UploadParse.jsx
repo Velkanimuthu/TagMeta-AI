@@ -80,7 +80,7 @@ try {
 
     setErrorMessage(
         err.message ||
-        'Could not connect to backend server.'
+        'Failed to process transcript. The server may be waking up or busy—please try again.'
     );
 }
 
