@@ -36,26 +36,54 @@ export default function UploadParse() {
         const formData = new FormData();
         formData.append('file', file);
 
-        try {
-            const response = await fetch('https://tagmeta-ai-1.onrender.com/api/upload', {
-                method: 'POST',
-                body: formData,
-            });
+        
+try {
+    const response = await fetch('https://tagmeta-ai-1.onrender.com/api/upload', {
+        method: 'POST',
+        body: formData,
+    });
 
-            const data = await response.json();
+    console.log('Backend HTTP status:', response.status);
 
-            if (!response.ok) {
-                setUploadStatus('error');
-                setErrorMessage(data.error || 'Failed to process the uploaded file.');
-            } else {
-                setUploadStatus('success');
-                setResultData(data);
-            }
-        } catch (err) {
-            console.error('Upload Error:', err);
-            setUploadStatus('error');
-            setErrorMessage('Could not connect to backend server. Please verify Flask is running on port 5000.');
-        }
+    const responseText = await response.text();
+
+    console.log('Backend raw response:', responseText);
+
+    let data;
+
+    try {
+        data = JSON.parse(responseText);
+    } catch (parseError) {
+        console.error('JSON Parse Error:', parseError);
+        throw new Error(
+            `Backend returned invalid response. HTTP ${response.status}: ${responseText.substring(0, 300)}`
+        );
+    }
+
+    if (!response.ok) {
+        setUploadStatus('error');
+        setErrorMessage(
+            data.error ||
+            data.message ||
+            `Backend error: HTTP ${response.status}`
+        );
+        return;
+    }
+
+    setUploadStatus('success');
+    setResultData(data);
+
+} catch (err) {
+    console.error('Upload Error:', err);
+
+    setUploadStatus('error');
+
+    setErrorMessage(
+        err.message ||
+        'Could not connect to backend server.'
+    );
+}
+
     };
 
     const handleFileChange = (e) => {
