@@ -27,7 +27,7 @@ export default function SearchTranscripts() {
     const fetchInitial = async () => {
       setIsSearching(true);
       try {
-        const response = await fetch('http://127.0.0.1:5000/api/search?q=&genre=All%20Categories&sentiment=All%20Sentiments&emotion=All%20Emotions&character=&page=1&limit=10');
+        const response = await fetch('https://tagmeta-ai-1.onrender.com/api/search?q=&genre=All%20Categories&sentiment=All%20Sentiments&emotion=All%20Emotions&character=&page=1&limit=10');
         if (response.ok) {
           const data = await response.json();
           setResults(data.results || []);
