@@ -22,7 +22,10 @@ from google import genai
 # <-- NEW: For Sentiment Analysis
 
 app = Flask(__name__)
-CORS(app)
+CORS(app,
+    resources={r"/*": {"origins": "*"}},
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"])
 
 load_dotenv()
 gemini_api_key = os.getenv("GEMINI_API_KEY")
