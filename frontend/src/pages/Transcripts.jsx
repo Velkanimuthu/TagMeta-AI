@@ -7,7 +7,7 @@ export default function Transcripts() {
 
   // Fetch the data from your Flask API when the component mounts
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api/transcripts')
+    fetch('https://tagmeta-ai-1.onrender.com/api/transcripts')
       .then(res => res.json())
       .then(data => {
         setTranscripts(data);
